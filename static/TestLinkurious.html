@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TestLinkurious</title>
+</head>
+
+<script src="jquery-3.1.0.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<!--<script src="sigma.min.js"></script>-->
+<!-- START SIGMA IMPORTS -->
+<script src="linkurious.js-1.5.1/src/sigma.core.js"></script>
+<script src="linkurious.js-1.5.1/src/conrad.js"></script>
+<script src="linkurious.js-1.5.1/src/utils/sigma.utils.js"></script>
+<script src="linkurious.js-1.5.1/src/utils/sigma.polyfills.js"></script>
+<script src="linkurious.js-1.5.1/src/sigma.settings.js"></script>
+<script src="linkurious.js-1.5.1/src/classes/sigma.classes.dispatcher.js"></script>
+<script src="linkurious.js-1.5.1/src/classes/sigma.classes.configurable.js"></script>
+<script src="linkurious.js-1.5.1/src/classes/sigma.classes.graph.js"></script>
+<script src="linkurious.js-1.5.1/src/classes/sigma.classes.camera.js"></script>
+<script src="linkurious.js-1.5.1/src/classes/sigma.classes.quad.js"></script>
+<script src="linkurious.js-1.5.1/src/captors/sigma.captors.mouse.js"></script>
+<script src="linkurious.js-1.5.1/src/captors/sigma.captors.touch.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/sigma.renderers.canvas.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/sigma.renderers.webgl.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/sigma.renderers.svg.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/sigma.renderers.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/svg/sigma.svg.utils.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/svg/sigma.svg.nodes.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/svg/sigma.svg.edges.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/svg/sigma.svg.edges.curve.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/svg/sigma.svg.edges.curvedArrow.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/svg/sigma.svg.labels.def.js"></script>
+<script src="linkurious.js-1.5.1/src/renderers/svg/sigma.svg.hovers.def.js"></script>
+<script src="linkurious.js-1.5.1/src/middlewares/sigma.middlewares.rescale.js"></script>
+<script src="linkurious.js-1.5.1/src/middlewares/sigma.middlewares.copy.js"></script>
+<script src="linkurious.js-1.5.1/src/misc/sigma.misc.animation.js"></script>
+<script src="linkurious.js-1.5.1/src/misc/sigma.misc.bindEvents.js"></script>
+<script src="linkurious.js-1.5.1/src/misc/sigma.misc.bindDOMEvents.js"></script>
+<script src="linkurious.js-1.5.1/src/misc/sigma.misc.drawHovers.js"></script>
+<!-- END SIGMA IMPORTS -->
+<script src="linkurious.js-1.5.1/plugins/sigma.parsers.gexf/gexf-parser.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.parsers.gexf/sigma.parsers.gexf.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.plugins.animate/sigma.plugins.animate.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.layouts.forceLink/worker.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.layouts.forceLink/supervisor.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+
+<script src="linkurious.js-1.5.1/plugins/sigma.helpers.graph/sigma.helpers.graph.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+<script type="text/javascript"
+        src="linkurious.js-1.5.1/plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+<script
+        src="linkurious.js-1.5.1/plugins/sigma.layouts.forceAtlas2/worker.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.layouts.forceAtlas2/supervisor.js"></script>
+<script
+        src="linkurious.js-1.5.1/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.curve.js"></script>
+<script
+        src="linkurious.js-1.5.1/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+<script
+        src="linkurious.js-1.5.1/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edgehovers.def.js"></script>
+<script
+        src="linkurious.js-1.5.1/plugins/sigma.renderers.linkurious/canvas/sigma.canvas.edges.autoCurve.js"></script>
+<script
+        src="linkurious.js-1.5.1/plugins/sigma.plugins.filter/sigma.plugins.filter.js"></script>
+<script
+        src="linkurious.js-1.5.1/plugins/sigma.plugins.tooltips/sigma.plugins.tooltips.js"></script>
+<script
+        src="linkurious.js-1.5.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.tapered.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+<script src="linkurious.js-1.5.1/plugins/sigma.layouts.fruchtermanReingold/sigma.layout.fruchtermanReingold.js"></script>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+
+<!-- WRAPPER div -->
+<div class="container">
+    <div style="display: table;">
+        <div style="display: table-row;">
+
+            <!-- SELECT HASTAG div  -->
+            <div class="container" style="display: table-cell;">
+                <h2>Hashtag-Cloud</h2>
+                <p>Enter a hashtag to search for:</p>
+                <form id="tagForm">
+                    <div class="form-group">
+                        <label for="hashtag">Hashtag:</label>
+                        <input type="text" class="form-control" id="hashtag">
+                    </div>
+
+                </form>
+                <button type="button" class="btn btn-default" id="submitButton">
+                    <span class="glyphicon glyphicon-play"></span> Submit
+                </button>
+                <button type="button" class="btn btn-danger" id="clearButton">
+                    <span class="glyphicon glyphicon-remove"></span> Clear graph
+                </button>
+
+            </div>
+
+            <!-- MOST USED HASHTAGS div  -->
+            <div class="container" style="display: table-cell;">
+                <h3>Most used hashtags</h3>
+                <table id="tagTable" class="table table-striped">
+                    <tbody id="tagTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRAPH CONTAINER -->
+    <div class="container">
+        <div id="graph-container"></div>
+    </div>
+</div>
+</body>
+
+
+<script>
+
+    // Submit tagform
+    $('#tagForm').submit(function (event) {
+        event.preventDefault();
+
+        // Get value from input tag and execute query
+        var value = $('#hashtag').val();
+        fillGraph(value);
+    });
+
+    // Clear graph button
+    $('#clearButton').on('click', function (event) {
+        event.preventDefault();
+        s.graph.clear();
+        s.refresh();
+    });
+
+    // Submit button onclick
+    $('#submitButton').on('click', function (event) {
+        event.preventDefault();
+        $('#tagForm').submit();
+    });
+
+    // Colors full
+    var colorsAll = ['#34A853', '#39A756', '#3EA65A', '#43A65D', '#48A561', '#4DA464',
+        '#52A368', '#57A26B', '#5CA26F', '#61A172', '#66A076', '#6B9F79', '#709E7C',
+        '#759E80', '#7A9D83', '#7F9C87', '#849B8A', '#899A8E', '#8E9A91', '#939995', '#989898', '#9C9493', '#A0908E', '#A48B89', '#A88784', '#AC837F', '#B17E7A', '#B57A75', '#B97670', '#BD726B', '#C16E66', '#C56962', '#C9655D', '#CD6158', '#D15C53', '#D6584E', '#DA5449', '#DE5044', '#E24C3F', '#E6473A', '#EA4335'];
+
+    // Colors small
+    var colorsSmall = {neu: '#989898', pos: '#34A853', neg: '#EA4335'};
+
+
+    /**
+     * Query template
+     * @type {string}
+     */
+    var queryTemplate =
+            'MATCH (t1:Topic {{{ob}}})<-[:HAS_TOPIC]-(d:Document)-[:HAS_TOPIC]->(t2:Topic) ' +
+            'WHERE t1.name =~ "#.*" AND t2.name =~ "#.*" AND t1.name <> t2.name ' +
+            'WITH d as Doc, {t1:t1.name, t2:t2.name} as comb ' +
+            'RETURN count(Doc) AS w, comb , collect(Doc) as Docs ' +
+            'ORDER BY w DESC ' +
+            'LIMIT 10';
+
+
+    /**
+     * Checks wether the given container already contains the node/edge
+     * Skips adding the new data if it already exists
+     * @param container nodes/edges
+     * @param cb callback
+     * @param data new node/edge
+     */
+    function securePush(container, cb, data) {
+        var ex = false;
+        for (var idx in container) {
+            if (container[idx].id == data.id) {
+                ex = true;
+            } else {
+                // Not an edge
+                if (container[idx].id.indexOf('_') < 0) {
+                    continue;
+                }
+
+                // Split on tags
+                var s0 = container[idx].id.split('_');
+                var s1 = data.id.split('_');
+                s0.sort();
+                s1.sort();
+
+                // Check for tag equality
+                if (s0[0] == s1[0] && s0[1] == s1[1]) {
+                    ex = true;
+                }
+
+            }
+        }
+
+        // If it did not exists yet call addNode/addEdge with the given node/edge
+        if (!ex) {
+            cb(data);
+        }
+    }
+
+    // Graph
+    var g = {
+        nodes: [],
+        edges: []
+    };
+
+    // Instantiate sigma:
+    s = new sigma({
+        graph: g,
+        renderer: {
+            container: document.getElementById('graph-container'),
+            type: 'canvas'
+        },
+        settings: {
+            doubleClickEnabled: false,
+            minEdgeSize: 0.5,
+            maxEdgeSize: 4,
+            enableEdgeHovering: true,
+            edgeHoverColor: 'edge',
+            defaultEdgeHoverColor: '#020',
+            edgeHoverSizeRatio: 1,
+            edgeHoverExtremities: true,
+            minNodeSize: 0.5,
+            maxNodeSize: 20,
+            autoCurveRatio: 2
+        }
+    });
+
+    // Set onclick for nodes
+    s.bind('clickNode', function (e) {
+        // Fill graph with connections to the given hashtag
+        fillGraph(e.data.node.id);
+    });
+
+
+    // Distribution of sentiments per hastag
+    var hashTagSentimentDistribution = {};
+
+
+    /**
+     * Adds sentiments to the given tag
+     */
+    function addSentiment(tag, sent, articleId) {
+        if (hashTagSentimentDistribution[tag]) {
+            if (hashTagSentimentDistribution[tag][sent]) {
+                hashTagSentimentDistribution[tag][sent].add(articleId);
+            } else {
+                hashTagSentimentDistribution[tag][sent] = new Set([articleId]);
+            }
+        } else {
+            hashTagSentimentDistribution[tag] = {};
+            hashTagSentimentDistribution[tag][sent] = new Set([articleId]);
+        }
+    }
+
+
+    /**
+     * Updates node colors baset on the sentiment of the tag
+     */
+    function updateColors() {
+        for (var tag in hashTagSentimentDistribution) {
+            s.graph.nodes(tag).color = getSentimentColorOfTag(tag);
+        }
+        s.refresh({skipIndexation: true});
+    }
+
+    /**
+     * counts the sentiments
+     * @param obj
+     */
+    function countSentiments(obj) {
+
+        var t1 = obj.comb.t1;
+        var t2 = obj.comb.t2;
+
+        for (var idx in obj.Docs) {
+            var doc = obj.Docs[idx];
+            var sent = doc.properties.sentiment;
+            var articleId = doc.properties.article_id;
+            var sentVal = sent == 'negative' ? -1 : sent == 'positive' ? 1 :
+                    sent == 'neutral' ? 0 : sent;
+            addSentiment(t1, sentVal, articleId);
+            addSentiment(t2, sentVal, articleId);
+        }
+    }
+
+
+    /**
+     * Returns the sentiments for a given tag
+     */
+    function getSentsByTag(tag) {
+        var sents = hashTagSentimentDistribution[tag];
+
+        var neg = 0;
+        var neu = 0;
+        var pos = 0;
+
+        if(sents[-1]){
+            neg=sents[-1].size;
+        }
+        if(sents[0]){
+            neu = sents[0].size;
+        }
+        if(sents[1]){
+            pos = sents[1].size;
+        }
+
+        var count = neg + neu + pos;
+        return {neg: neg, neu: neu, pos: pos, count: count};
+    }
+    /**
+     * Aggregates the sentiments of a given tag
+     * @param tag tag
+     * @returns {number} aggregation
+     */
+    function getSentimentColorOfTag(tag) {
+        var sents = getSentsByTag(tag);
+        var neg = sents.neg;
+        var neu = sents.neu;
+        var pos = sents.pos;
+        var count = sents.count;
+
+        if (count == 0) {
+            return colorsSmall.neu;
+        }
+
+        if (neu / count >= 0.8) {
+            return colorsSmall.neu
+        }
+
+        if (pos / (pos + neg) >= 0.6) {
+            return colorsSmall.pos;
+        }
+
+        if (neg / (pos + neg) >= 0.6) {
+            return colorsSmall.neg;
+        }
+
+        return colorsSmall.neu;
+    }
+
+    /*
+     Config for the toolbox
+     */
+    var config = {
+        node: [{
+            show: 'hovers',
+            hide: 'hovers',
+            cssClass: 'sigma-tooltip',
+            position: 'top',
+            delay: 500,
+            autoadjust: true,
+            template: '<div class="arrow"></div>' +
+            ' <div class="sigma-tooltip-header">{{label}} Sentiments</div>' +
+            '  <div class="sigma-tooltip-body">' +
+            '    <table>' +
+            '      <tr><th>Positive</th> <td> {{posPerc}} %</td></tr>' +
+            '      <tr><th>Negative</th> <td> {{negPerc}} %</td></tr>' +
+            '      <tr><th>Neutral</th> <td> {{neuPerc}} %</td></tr>' +
+            '      <tr><th>Total</th> <td> {{count}}</td></tr>' +
+            '    </table>' +
+            '  </div>'
+            // '  <div class="sigma-tooltip-footer">Number of connections: {{count}}</div>',
+            , renderer: function (node, template) {
+                // The function context is s.graph
+                // Returns an HTML string:
+                var obj = getSentsByTag(node.id);
+                obj.label = node.id;
+                if (obj.count == 0) {
+                    obj.posPerc = 0;
+                    obj.negPerc = 0;
+                    obj.neuPerc = 0;
+                } else {
+                    obj.posPerc = Math.round(obj.pos / obj.count * 100);
+                    obj.negPerc = Math.round(obj.neg / obj.count * 100);
+                    obj.neuPerc = Math.round(obj.neu / obj.count * 100);
+                }
+                return Mustache.render(template, obj);
+            }
+        }],
+        stage: {
+            template: '<div class="arrow"></div>' +
+            '<div class="sigma-tooltip-header"> Menu </div>'
+        }
+    };
+
+    // Set tooltips
+    var tooltips = sigma.plugins.tooltips(s, s.renderers[0], config);
+
+
+    /**
+     * Setup the list of most used hashtags and add onclick listeners for
+     * each tag
+     */
+    function setupMostUsedHashtags() {
+        var ob = '';
+
+        $.post('/query', {query: Mustache.render(queryTemplate, {ob: ob})}, function
+                (data) {
+            for (var idx in data) {
+                var topic = data[idx].comb.t1;
+
+                var tr = "<tr><td>" + topic + "</td></tr>";
+                $('#tagTableBody').append(tr);
+
+                if (idx >= 5) {
+                    break;
+                }
+            }
+
+            $('#tagTableBody').find('td').each(function () {
+                $(this).on('click', function (e) {
+                    e.preventDefault();
+                    var val = this.innerHTML;
+                    fillGraph(val);
+                })
+            })
+
+        });
+
+
+    }
+
+    // Call
+    setupMostUsedHashtags();
+
+
+    /**
+     * Fills the graph by executing the query with the given hashtag
+     * @param hashtag
+     */
+    function fillGraph(hashtag) {
+
+        // Check if tag starts with a has
+        if (hashtag.indexOf('#') != 0 && hashtag.length > 0) {
+            hashtag = '#' + hashtag;
+        }
+
+        // Create the cypher object with given hashtag as name
+        var ob = ' {name:"' + hashtag + '"}';
+        if (hashtag == '') { // Omit obj to get all combinations
+            ob = '';
+        }
+
+        // Query to get all topics which happened to be in the same documents as the given topic
+        var query = Mustache.render(queryTemplate, {ob: ob});
+
+        // Post query to server
+        $.post('/query', {query: query}, function (data) {
+            console.log(data);
+            // Alert if there were no results for the current query
+            if (data.length == 0) {
+                window.alert('No results found');
+            }
+
+
+            // For each topic found: create nodes and edges
+            for (var idx in data) {
+                countSentiments(data[idx]);
+                var t1 = data[idx].comb.t1;
+                var t2 = data[idx].comb.t2;
+                var weight = data[idx].w;
+
+                securePush(s.graph.nodes(), s.graph.addNode, {
+                    id: t1,
+                    label: t1,
+                    size: Math.log(Math.log(weight)),
+                    x: Math.random() / weight,
+                    y: Math.random() / weight,
+                    color: '#aaa'
+                });
+                securePush(s.graph.nodes(), s.graph.addNode, {
+                    id: t2,
+                    label: t2,
+                    size: Math.log(Math.log(weight)),
+                    x: Math.random() / weight,
+                    y: Math.random() / weight,
+                    color: '#aaa'
+                });
+
+                securePush(s.graph.edges(), s.graph.addEdge, {
+                    id: t1 + '_' + t2,
+                    source: t1,
+                    target: t2,
+                    size: weight,
+                    label: '' + weight,
+                    color: '#ccc',
+                    type: 'tapered',
+                    weight: weight
+                });
+            }
+
+            // Update sigma instance after all nodes and edges have been added
+            s.refresh();
+
+            // Set sigma layout
+            var listener = sigma.layouts.fruchtermanReingold.start(s,
+                    {
+                        autoArea: true,
+                        speed: 0.1,
+                        iterations: 250,
+                        easing: 'cubicInOut',
+                        duration: 2000
+                    });
+
+            // Update colors since new sentiments have been added
+            updateColors();
+        });
+    }
+
+
+</script>
+</html>
