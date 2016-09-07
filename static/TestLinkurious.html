@@ -239,6 +239,10 @@
         if (!ex) {
             cb(data);
         }
+
+
+        return !ex;
+
     }
 
     // Graph
@@ -256,16 +260,17 @@
         },
         settings: {
             doubleClickEnabled: false,
-            minEdgeSize: 0.5,
-            maxEdgeSize: 4,
+            minEdgeSize: 0.1,
+            maxEdgeSize: 15,
+            autoRescale: true,
             enableEdgeHovering: true,
             edgeHoverColor: 'edge',
             defaultEdgeHoverColor: '#020',
             edgeHoverSizeRatio: 1,
             edgeHoverExtremities: true,
             minNodeSize: 0.5,
-            maxNodeSize: 20,
-            autoCurveRatio: 2
+            maxNodeSize: 25,
+//            autoCurveRatio: 2
         }
     });
 
@@ -338,13 +343,13 @@
         var neu = 0;
         var pos = 0;
 
-        if(sents[-1]){
-            neg=sents[-1].size;
+        if (sents[-1]) {
+            neg = sents[-1].size;
         }
-        if(sents[0]){
+        if (sents[0]) {
             neu = sents[0].size;
         }
-        if(sents[1]){
+        if (sents[1]) {
             pos = sents[1].size;
         }
 
@@ -496,6 +501,7 @@
                 window.alert('No results found');
             }
 
+            var newData = false;
 
             // For each topic found: create nodes and edges
             for (var idx in data) {
@@ -504,15 +510,17 @@
                 var t2 = data[idx].comb.t2;
                 var weight = data[idx].w;
 
-                securePush(s.graph.nodes(), s.graph.addNode, {
-                    id: t1,
-                    label: t1,
-                    size: Math.log(Math.log(weight)),
-                    x: Math.random() / weight,
-                    y: Math.random() / weight,
-                    color: '#aaa'
-                });
-                securePush(s.graph.nodes(), s.graph.addNode, {
+                var res = securePush(s.graph.nodes(),
+                        s.graph.addNode, {
+                            id: t1,
+                            label: t1,
+                            size: Math.log(Math.log(weight)),
+                            x: Math.random() / weight,
+                            y: Math.random() / weight,
+                            color: '#aaa'
+                        });
+                newData = (newData || res);
+                res = securePush(s.graph.nodes(), s.graph.addNode, {
                     id: t2,
                     label: t2,
                     size: Math.log(Math.log(weight)),
@@ -521,16 +529,24 @@
                     color: '#aaa'
                 });
 
-                securePush(s.graph.edges(), s.graph.addEdge, {
+                newData = (newData || res);
+                res = securePush(s.graph.edges(), s.graph.addEdge, {
                     id: t1 + '_' + t2,
                     source: t1,
                     target: t2,
-                    size: weight,
+                    size: Math.log(weight),
                     label: '' + weight,
                     color: '#ccc',
-                    type: 'tapered',
+                    type: 'curve',
                     weight: weight
                 });
+                newData = (newData || res);
+            }
+
+
+            // Check if newData has been added
+            if(!newData){
+                window.alert('No new data found');
             }
 
             // Update sigma instance after all nodes and edges have been added
