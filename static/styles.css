@@ -5,6 +5,23 @@
     /*margin: 10px;*/
     box-shadow: 0 0 10px grey;
     position: absolute;
+    background: rgba(255, 202, 0, 0.13);
+    border-radius: 6px;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
 }
 
 

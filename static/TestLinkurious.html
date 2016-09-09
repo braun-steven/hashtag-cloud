@@ -103,10 +103,8 @@
         src="linkurious.js-1.5.1/plugins/sigma.plugins.tooltips/sigma.plugins.tooltips.js"></script>
 <script
         src="linkurious.js-1.5.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.tapered.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
 <script src="linkurious.js-1.5.1/plugins/sigma.layouts.fruchtermanReingold/sigma.layout.fruchtermanReingold.js"></script>
-
 <head>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -137,12 +135,16 @@
                     <span class="glyphicon glyphicon-remove"></span> Clear graph
                 </button>
 
+                <button id="loadingButton" class="btn btn-warning"
+                        style="visibility: hidden;">
+                    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
+                </button>
             </div>
 
             <!-- MOST USED HASHTAGS div  -->
             <div class="container" style="display: table-cell;">
-                <h3>Most used hashtags</h3>
-                <table id="tagTable" class="table table-striped">
+                <h3>Top topics</h3>
+                <table id="tagTable" class="table table-hover">
                     <tbody id="tagTableBody"></tbody>
                 </table>
             </div>
@@ -196,9 +198,10 @@
      */
     var queryTemplate =
             'MATCH (t1:Topic {{{ob}}})<-[:HAS_TOPIC]-(d:Document)-[:HAS_TOPIC]->(t2:Topic) ' +
-            'WHERE t1.name =~ "#.*" AND t2.name =~ "#.*" AND t1.name <> t2.name ' +
-            'WITH d as Doc, {t1:t1.name, t2:t2.name} as comb ' +
-            'RETURN count(Doc) AS w, comb , collect(Doc) as Docs ' +
+//            'WHERE t1.name =~ "#.*" AND t2.name =~ "#.*" AND t1.name <> t2.name ' +
+            'WHERE t1.name <> t2.name ' +
+            'WITH collect(d) as Docs, {t1:t1.name, t2:t2.name} as comb ' +
+            'RETURN length(Docs) AS w, comb , Docs ' +
             'ORDER BY w DESC ' +
             'LIMIT 10';
 
@@ -260,16 +263,16 @@
         },
         settings: {
             doubleClickEnabled: false,
-            minEdgeSize: 0.1,
-            maxEdgeSize: 15,
+            minEdgeSize: 1,
+            maxEdgeSize: 10,
             autoRescale: true,
             enableEdgeHovering: true,
             edgeHoverColor: 'edge',
             defaultEdgeHoverColor: '#020',
             edgeHoverSizeRatio: 1,
             edgeHoverExtremities: true,
-            minNodeSize: 0.5,
-            maxNodeSize: 25,
+            minNodeSize: 1,
+            maxNodeSize: 20,
 //            autoCurveRatio: 2
         }
     });
@@ -387,6 +390,7 @@
         return colorsSmall.neu;
     }
 
+
     /*
      Config for the toolbox
      */
@@ -441,14 +445,23 @@
      * each tag
      */
     function setupMostUsedHashtags() {
+
+        $('#loadingButton').css('visibility', 'visible');
+        //$('#loadingButton').toggle(250);
+
         var ob = '';
 
-        $.post('/query', {query: Mustache.render(queryTemplate, {ob: ob})}, function
+        var listQuery = 'MATCH (t:Topic)<-[:HAS_TOPIC]-(d:Document) ' +
+                'RETURN t, count(d) ' +
+                'ORDER BY count(d) DESC ' +
+                'LIMIT 5';
+
+        $.post('/query', {query: listQuery}, function
                 (data) {
             for (var idx in data) {
-                var topic = data[idx].comb.t1;
-
-                var tr = "<tr><td>" + topic + "</td></tr>";
+                var topic = data[idx].t.properties.name;
+                var tr = "<tr class='clickable-row' style='cursor: pointer;'><td>" + topic +
+                        "</td></tr>";
                 $('#tagTableBody').append(tr);
 
                 if (idx >= 5) {
@@ -464,6 +477,9 @@
                 })
             })
 
+            $('#loadingButton').css('visibility', 'hidden');
+            //$('#loadingButton').toggle(250);
+
         });
 
 
@@ -478,20 +494,19 @@
      * @param hashtag
      */
     function fillGraph(hashtag) {
-
-        // Check if tag starts with a has
-        if (hashtag.indexOf('#') != 0 && hashtag.length > 0) {
-            hashtag = '#' + hashtag;
-        }
+        $('#loadingButton').css('visibility', 'visible');
 
         // Create the cypher object with given hashtag as name
         var ob = ' {name:"' + hashtag + '"}';
         if (hashtag == '') { // Omit obj to get all combinations
-            ob = '';
+            window.alert('No tag defined');
+            $('#loadingButton').css('visibility', 'hidden');
+            return;
         }
 
         // Query to get all topics which happened to be in the same documents as the given topic
         var query = Mustache.render(queryTemplate, {ob: ob});
+
 
         // Post query to server
         $.post('/query', {query: query}, function (data) {
@@ -517,7 +532,7 @@
                             size: Math.log(Math.log(weight)),
                             x: Math.random() / weight,
                             y: Math.random() / weight,
-                            color: '#aaa'
+                            color: '#aaa',
                         });
                 newData = (newData || res);
                 res = securePush(s.graph.nodes(), s.graph.addNode, {
@@ -545,7 +560,7 @@
 
 
             // Check if newData has been added
-            if(!newData){
+            if (!newData) {
                 window.alert('No new data found');
             }
 
@@ -564,6 +579,8 @@
 
             // Update colors since new sentiments have been added
             updateColors();
+
+            $('#loadingButton').css('visibility', 'hidden');
         });
     }
 
