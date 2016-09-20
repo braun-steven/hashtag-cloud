@@ -21,4 +21,9 @@ router.post('/query', function (req, res, next) {
     });
 });
 
+router.get('/', function (req, res, next) {
+    // Cypherquery
+    res.redirect('/TestLinkurious.html');
+});
+
 module.exports = router;
