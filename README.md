@@ -1,9 +1,9 @@
-= Topic-Visualizer =
+# Topic-Visualizer
 This project is a Proof-Of-Concept for the usage of a neo4j database and can visualize document-topics (hashtags) with their most similar topics and their sentiments
 
-== Dependencies == 
-* NodeJS >= 4.5.0
-* Neo4j >= 3.0
+## Dependencies 
+- NodeJS >= 4.5.0
+- Neo4j >= 3.0
 
 The neo4j needs a database with documents labeled as `Document` with properties `article_id` and `sentiment`. There needs to be a relationship to another entity called `Topic` with a property `name`. 
 ```
@@ -11,12 +11,12 @@ The neo4j needs a database with documents labeled as `Document` with properties 
 ```
 ... would be a valid set.
 
-== BUILD-UP ==
+## BUILD-UP 
 ```
 npm install
 ```
 
-== How to execute ==
+## How to execute 
 A running instance of a neo4j server is necessary (currently at `localhost:7474`)
 
 ```
