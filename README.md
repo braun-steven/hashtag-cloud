@@ -2,7 +2,7 @@
 This project is a Proof-Of-Concept for the usage of a neo4j database and can visualize document-topics (hashtags) with their most similar topics and their sentiments
 
 ## Example
-[example!](screenshot.png)
+![example](screenshot.png)
 
 ## Dependencies 
 - NodeJS >= 4.5.0
