@@ -1,6 +1,9 @@
 # Topic-Visualizer
 This project is a Proof-Of-Concept for the usage of a neo4j database and can visualize document-topics (hashtags) with their most similar topics and their sentiments
 
+## Example
+[example!](screenshot.png)
+
 ## Dependencies 
 - NodeJS >= 4.5.0
 - Neo4j >= 3.0
